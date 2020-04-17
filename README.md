@@ -6,7 +6,7 @@ findInstacartDeliverySlot.py is the core python file. It takes instacart login i
 
 this is a quick and dirty first version. Need lots of improvements to make it more robust (program crashed after 3 hours because instacart site went down. need to handle such excpetions. For now, if the program crashes, go and check instacart to see if the site is up and running and re run the program)
 
-## Pre - requisites
+## Prerequisites
 
 Before running findInstacartDeliverySlot.py python file, please ensure the following prerequisites are completed
 
@@ -17,6 +17,7 @@ Before running findInstacartDeliverySlot.py python file, please ensure the follo
     b. pip install pyderman
 4. Upgrade chrome to version 81. This program will run on Chrome version 81 (latest version as of now)
 5. PLEASE MAKE SURE THAT INSTACART HAS YOUR LIST OF GROCERIES ADDED TO CART BEFORE RUNNING THE PROGRAM. This program is meant to provide alerts when delivery slots open up. Due to the extremely busy nature of instacart delivery service at this time, slots will close out quickly. This program is made for quick checkout and not to add groceries. Please ensure that your groceries are added to cart already before running this program.
+6. Please keep your PC/laptop in "sleep = NEVER" mode. Sometimes it takes days to find a slot!!
 
 ## Executing findInstacartDeliverySlot
 1. clone this git program onto your local machine

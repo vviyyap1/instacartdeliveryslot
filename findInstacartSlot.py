@@ -20,8 +20,8 @@ driver = webdriver.Chrome("./lib/chromedriver_81.0.4044.69.exe") #look in lib fo
 driver.get("http://www.instacart.com")
 
 #instacart login details. PROVIDE YOUR INSTACART LOGIN DETAILS
-instaLogin = 'test@gmail.com' 
-instaPas = 'test'
+instaLogin = 'venu.viyyapu@gmail.com' 
+instaPas = '6winter7'
 
 #which store do you want to check for delivery slot.
 instacartStore = 'wegmans'
@@ -36,9 +36,9 @@ smtp = 'smtp.gmail.com'
 port = 587
 
 #mobile details for sms. PROVIDE YOUR MOBILE DETAILS
-sms_gateway = '123456789@txt.att.net'
+sms_gateway = '4807172447@txt.att.net'
 #Optional second mobile to send alert
-sms_gateway2 = '123456789@txt.att.net'
+sms_gateway2 = '4803291120@txt.att.net'
 
 #Explicit Wait
 wait = WebDriverWait(driver, 30)
@@ -60,7 +60,6 @@ def store(storeName):
 
 deliverySlotUrl = store(instacartStore)
 
-  
 #MAIN CODE
 try:
     # Wait until Login button is present, or maximum maximum wait time is passed
@@ -118,11 +117,13 @@ try:
             print(py_while_ex)
             break
 
-    #initalize sms server
+     
+    #Send sms to mobile
     server = smtplib.SMTP(smtp,port)
     server.starttls()
     server.login(email,pas)
-    print('logged into smtp server') 
+    print('logged into smtp server')
+
     #send alert
     msg = MIMEMultipart()
     msg['From'] = email
