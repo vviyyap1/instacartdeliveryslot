@@ -105,12 +105,15 @@ try:
     while (True):
         try:
             count = count + 1
-            print(str(count) + '. url:' + url + ' ... current_url:' + driver.current_url)
-            elem2 = driver.find_elements_by_xpath('//div[text()="No delivery times available"] | //div[text() = "No service options found"]')
+            
+            elem2 = driver.find_element_by_xpath('//div[text()="No service options found"] | //h1[text()="No delivery times available"]')
+            print(str(count) + '. url:' + url + ' ... current_url:' + driver.current_url + " ##### Element:" + elem2.get_attribute('innerHTML'))
             if(url == driver.current_url) :
                 driver.refresh()
+            else: 
+                driver.get(deliverySlotUrl)
             
-            url = driver.current_url
+            url = deliverySlotUrl
             time.sleep(refreshSeconds)
 
         except (NoSuchElementException) as py_while_ex :
