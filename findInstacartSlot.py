@@ -20,8 +20,8 @@ driver = webdriver.Chrome("./lib/chromedriver_81.0.4044.69.exe") #look in lib fo
 driver.get("http://www.instacart.com")
 
 #instacart login details. PROVIDE YOUR INSTACART LOGIN DETAILS
-instaLogin = 'venu.viyyapu@gmail.com' 
-instaPas = '6winter7'
+instaLogin = 'test@gmail.com' 
+instaPas = 'test'
 
 #which store do you want to check for delivery slot.
 instacartStore = 'wegmans'
@@ -36,9 +36,9 @@ smtp = 'smtp.gmail.com'
 port = 587
 
 #mobile details for sms. PROVIDE YOUR MOBILE DETAILS
-sms_gateway = '4807172447@txt.att.net'
+sms_gateway = '123456789@txt.att.net'
 #Optional second mobile to send alert
-sms_gateway2 = '4803291120@txt.att.net'
+sms_gateway2 = '123456789@txt.att.net'
 
 #Explicit Wait
 wait = WebDriverWait(driver, 30)
