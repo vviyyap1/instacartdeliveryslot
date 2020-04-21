@@ -27,7 +27,7 @@ instaPas = 'test'
 instacartStore = 'wegmans'
 
 #number of secconds to refresh slot availability page
-refreshSeconds = 20
+refreshSeconds = 60
 
 #EMAIL, Password and Mobile SMS details
 email = 'venugroceriesslotalert@gmail.com'
@@ -105,9 +105,13 @@ try:
     while (True):
         try:
             count = count + 1
-            
-            elem2 = driver.find_element_by_xpath('//div[text()="No service options found"] | //h1[text()="No delivery times available"]')
-            print(str(count) + '. url:' + url + ' ... current_url:' + driver.current_url + " ##### Element:" + elem2.get_attribute('innerHTML'))
+
+            keywords = ['No service options found','No delivery times available','All delivery windows are full']
+            conditions = " or ".join(["contains(., '%s')" % keyword for keyword in keywords])
+            expression = "//div[%s]" % conditions
+
+            elem2 = driver.find_element_by_xpath(expression)
+            print(str(count) + '. url:' + url + ' ... current_url:' + driver.current_url + " ##### Element:" + elem2.text)
             if(url == driver.current_url) :
                 driver.refresh()
             else: 
