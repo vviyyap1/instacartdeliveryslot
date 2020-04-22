@@ -4,7 +4,7 @@ This program is created to find next available instacart delivery slot. This is 
 
 findInstacartDeliverySlot.py is the core python file. It takes instacart login id/password as parameters and will login to instacart. Once logged in, the program periodically checks for available delivery times in checkout page (period is configurable - default is every 20 seconds). If a slot opens up, the program will alert users on their mobile phone through sms message. Mobile numbers of users can be configured (this program will currently send alerts to up to 2 mobile phones)
 
-this is a quick and dirty first version. Need lots of improvements to make it more robust (program crashed after 3 hours because instacart site went down. need to handle such excpetions. For now, if the program crashes, go and check instacart to see if the site is up and running and re run the program)
+This is version 1.2. Major bug fixes added and ability to find slot from checkout page is added. This program is tested for 5 days, more changes might be required
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ Before running findInstacartDeliverySlot.py python file, please ensure the follo
 2. open findInstacartDeliverySlot.py file in any editor and update the following parameters
     a. instaLogin = #YOUR INSTACART LOGIN
     b. instaPas = #YOUR INSTACART PASSWORD
-    c. instacartStore = #INSTACART STORE THAT YOU WANT TO FIND SLOT (currently only 'wegmans', 'costco', 'aldi', 'acme', 'cvs', 'shoprite', 'target' and 'petco' are supported
+    c. instacartStore = #INSTACART STORE THAT YOU WANT TO FIND SLOT. Default this parameter to '' if you don't want to specify a particular store. Default behavior will identify store from checkout page. Currently only 'wegmans', 'costco', 'aldi', 'acme', 'cvs', 'shoprite', 'target' and 'petco' are supported
     d. sms_gateway = # YOUR MOBILE SMS GATEWAY FOR THE PHONE YOU WANT TO REE (You can find your carrier's sms gateway address on web. For eg., if your carrier is AT&T and your number is 123456789, sms gateway will be '123456789@txt.att.net'
     e. sms_gateway2 = #Optional second mobile phone. leave it as None if you don't want to add 2nd mobile
 2. Navigate to local folder in terminal or command prompt and run "python findInstacartDeliverySlot.py".

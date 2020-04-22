@@ -19,30 +19,35 @@ from email.mime.multipart import MIMEMultipart
 driver = webdriver.Chrome("./lib/chromedriver_81.0.4044.69.exe") #look in lib folder and use the exact name. Also ensure that right version of chrome browser is present
 driver.get("http://www.instacart.com")
 
+
+######  USER PARAMETERS  ########
+
 #instacart login details. PROVIDE YOUR INSTACART LOGIN DETAILS
 instaLogin = 'test@gmail.com' 
 instaPas = 'test'
 
 #which store do you want to check for delivery slot.
-instacartStore = 'wegmans'
+instacartStore = 'wegmans' #if no store is requested, default behaviour will load checkout page and tries to find delivery slot.
 
 #number of secconds to refresh slot availability page
 refreshSeconds = 60
-
-#EMAIL, Password and Mobile SMS details
-email = 'venugroceriesslotalert@gmail.com'
-pas = 'LetsRock!'
-smtp = 'smtp.gmail.com'
-port = 587
 
 #mobile details for sms. PROVIDE YOUR MOBILE DETAILS
 sms_gateway = '123456789@txt.att.net'
 #Optional second mobile to send alert
 sms_gateway2 = '123456789@txt.att.net'
 
+#######   END OF USER PARAMETERS ##########
+
+
+#EMAIL, Password and Mobile SMS details. Message will be sent to mobile from this email when slot opens up
+email = 'venugroceriesslotalert@gmail.com'
+pas = 'LetsRock!'
+smtp = 'smtp.gmail.com'
+port = 587
+
 #Explicit Wait
 wait = WebDriverWait(driver, 30)
-
 
 #utility function for defining store delivery url
 def store(storeName):
@@ -56,9 +61,14 @@ def store(storeName):
                 'target':'https://www.instacart.com/store/target/info?tab=delivery',
                 'petco':'https://www.instacart.com/store/petco/info?tab=delivery'
         }
-        return switcher.get(storeName,"Invalid day of week")
+        return switcher.get(storeName,"https://www.instacart.com/store/checkout_v3")
 
 deliverySlotUrl = store(instacartStore)
+
+#Is checkout page refresh requested. Checkout page refresh is requested if store name is not provided in parameter
+isCheckoutPageRefreshRequested = False
+if(deliverySlotUrl == 'https://www.instacart.com/store/checkout_v3'):
+    isCheckoutPageRefreshRequested = True
 
 #MAIN CODE
 try:
@@ -84,18 +94,18 @@ try:
     condition = EC.visibility_of_element_located((By.XPATH,'//button[text()="Cart"]'))
     wait.until(condition)
 
-    #REDUNDANT CODE - TO BE CLEANED UP (Efficient way is to check for delivery slot url)
+    #Go to checkout page if checkoutpagerefresh is requested
     #Open Cart
-    #elem = driver.find_element_by_xpath('//button[text()="Cart"]')
-    #elem.click()
+    if(isCheckoutPageRefreshRequested):
+        elem = driver.find_element_by_xpath('//button[text()="Cart"]')
+        elem.click()
 
-    #go to checkout page
-    #condition = EC.visibility_of_element_located((By.XPATH,'//a[@href="checkout_v3"]'))
-    #wait.until(condition)
-    
-    #elem2 = driver.find_element_by_xpath('//a[@href="checkout_v3"]')
-    #driver.implicitly_wait(5)
-    #elem2.click()
+        #go to checkout page
+        condition = EC.visibility_of_element_located((By.XPATH,'//a[@href="checkout_v3"]'))
+        wait.until(condition)
+        
+        elem2 = driver.find_element_by_xpath('//a[@href="checkout_v3"]')
+        elem2.click()
 
     #go to slot availability check url
     driver.get(deliverySlotUrl)
